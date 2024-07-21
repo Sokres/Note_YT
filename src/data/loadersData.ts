@@ -108,6 +108,14 @@ export async function getGlobalPageData() {
       "footer.socialLink",
     ],
   });
-  // console.log("object");
   return fetchData(url.href);
+}
+export async function getGlobalPageMetadata() {
+  const url = new URL("/api/global", baseUrl);
+
+  url.search = qs.stringify({
+    fields: ["title", "description"],
+  });
+
+  return await fetchData(url.href);
 }
