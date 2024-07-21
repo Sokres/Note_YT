@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { StrapiImage } from "./StrapiImage";
 
 export interface LandingPage {
   data: {
@@ -25,20 +26,14 @@ export interface Link {
 }
 
 const Landing = ({ data }: Readonly<LandingPage>) => {
-  console.dir(data, { depth: null });
   const { header, description, image, link } = data;
-  const imgURL = `${"http://localhost:1337"}${image.url}`;
   return (
     <header className="relative h-[600px] overflow-hidden bg-white">
-      <img
+      <StrapiImage
         alt="Background"
         className="absolute inset-0 h-full w-full object-cover"
         height={1080}
-        src={imgURL}
-        style={{
-          aspectRatio: "1920/1080",
-          objectFit: "cover",
-        }}
+        src={image.url}
         width={1920}
       />
       <div className="relative z-10 flex h-full flex-col items-center justify-center text-center">
