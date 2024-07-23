@@ -13,6 +13,13 @@ export function StrapiErrors({ error }: { readonly error: StrapiErrorsProps }) {
       </div>
     );
   }
+  if (error.message === "Invalid identifier or password") {
+    return (
+      <div className="text-md py-2 italic text-red-500">
+        Неправильный логин или парлоль
+      </div>
+    );
+  }
   return (
     <div className="text-md py-2 italic text-green-700">{error.message}</div>
   );

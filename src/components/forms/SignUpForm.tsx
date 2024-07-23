@@ -75,7 +75,7 @@ export function SignupForm() {
               text="Sign Up"
               loadingText="Loading"
             />
-            <StrapiErrors error={formState?.strapiErrors} />
+            <StrapiErrors error={formState?.strapiError} />
           </CardFooter>
         </Card>
         <div className="mt-4 text-center text-sm">

@@ -4,7 +4,11 @@ import { z } from "zod";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { registerUserService } from "../services/auth-services";
+import {
+  loginUserService,
+  registerUserService,
+} from "../services/auth-services";
+//НАстройка для храннения chokes
 const config = {
   maxAge: 60 * 60 * 24 * 7,
   path: "/",
@@ -12,7 +16,8 @@ const config = {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
 };
-const schemaRegister = z.object({
+//схема для отображнея сообщений в форме https://zod.dev/
+const schemaReg = z.object({
   username: z
     .string()
     .min(3, { message: "Ваше имя должно быть от 3 до 20 символов" })
@@ -30,7 +35,7 @@ const schemaRegister = z.object({
   }),
 });
 const schemaAutarisation = z.object({
-  email: z.string().email({
+  identifier: z.string().email({
     message: "Введите корректный email",
   }),
   password: z
@@ -40,9 +45,9 @@ const schemaAutarisation = z.object({
       message: "Пароль должен содержать максимум 100 символов",
     }),
 });
-
-const regUserAction = async (prevState: any, formData: FormData) => {
-  const variables = schemaRegister.safeParse({
+//action для регистрации
+export const regUserAction = async (prevState: any, formData: FormData) => {
+  const variables = schemaReg.safeParse({
     username: formData.get("username"),
     password: formData.get("password"),
     email: formData.get("email"),
@@ -75,4 +80,38 @@ const regUserAction = async (prevState: any, formData: FormData) => {
   redirect("/board");
 };
 
-export default regUserAction;
+export const authUserAction = async (prevState: any, formData: FormData) => {
+  const variables = schemaAutarisation.safeParse({
+    identifier: formData.get("identifier"),
+    password: formData.get("password"),
+  });
+  if (!variables.success) {
+    return {
+      ...prevState,
+      zodError: variables.error.flatten().fieldErrors,
+      message: "Отсутствуют поля. Не удалось войти в систему.",
+    };
+  }
+  const responsDate = await loginUserService(variables.data);
+  if (!responsDate) {
+    return {
+      zodError: null,
+      strapiError: null,
+      message: "Ошибка",
+    };
+  }
+  if (responsDate.error) {
+    return {
+      ...prevState,
+      strapiError: responsDate.error.error,
+      zodError: null,
+      message: "Ошибка Strapi",
+    };
+  }
+  cookies().set("jwt", responsDate.jwt, config);
+  redirect("/board");
+};
+export const LogoutAction = async () => {
+  cookies().set("jwt", "", { ...config, maxAge: 0 });
+  redirect("/");
+};

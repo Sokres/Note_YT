@@ -1,9 +1,10 @@
 import qs from "qs";
 import axios from "axios";
 import { flattenAttributes, getStrapiURL } from "@/lib/utils";
+import { unstable_noStore as noStore } from "next/cache";
 
 const baseUrl = getStrapiURL();
-
+//сам запрос для фукнций
 async function fetchData(url: string) {
   const authToken = null;
   const headers = {
@@ -19,10 +20,10 @@ async function fetchData(url: string) {
     throw error;
   }
 }
-
+//Фнукция получения данных для домашней страницы, с пмомщбю qs преобразуем структуру в запрос
 export async function getHomePageData() {
+  noStore();
   const url = new URL("/api/home-page", baseUrl);
-  console.log(url);
   url.search = qs.stringify({
     populate: {
       blocks: {
@@ -47,7 +48,9 @@ export async function getHomePageData() {
 
   return await fetchData(url.href);
 }
+//фукция получения данных для всего остального
 export async function getGlobalPageData() {
+  noStore();
   const url = new URL("/api/global", baseUrl);
   url.search = qs.stringify({
     populate: [
