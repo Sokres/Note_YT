@@ -1,6 +1,8 @@
 import Logo from "./Logo";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { getUserMeLoader } from "@/data/services/getUserMeLoader";
+import LogInUser from "./LogInUser";
 interface HeaderProps {
   data: {
     logoText: {
@@ -15,15 +17,21 @@ interface HeaderProps {
     };
   };
 }
-const Header = ({ data }: Readonly<HeaderProps>) => {
+const Header = async ({ data }: Readonly<HeaderProps>) => {
+  const user = await getUserMeLoader();
+  console.log(user);
   const { logoText, ctaButton } = data;
   return (
     <header className="relative z-10 shadow-xl">
-      <div className="mx-auto my-0 flex max-w-6xl justify-between py-3">
+      <div className="mx-auto my-0 flex justify-between px-20 py-3">
         <Logo></Logo>
-        <Link href={ctaButton.url}>
-          <Button>{ctaButton.text}</Button>
-        </Link>
+        {!user.ok ? (
+          <Link href={ctaButton.url}>
+            <Button>{ctaButton.text}</Button>
+          </Link>
+        ) : (
+          <LogInUser userData={user.data} />
+        )}
       </div>
     </header>
   );

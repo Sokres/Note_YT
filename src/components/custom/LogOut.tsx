@@ -4,8 +4,11 @@ import { LogOut } from "lucide-react";
 export function LogoutButton() {
   return (
     <form action={LogoutAction}>
-      <button type="submit">
-        <LogOut className="h-6 w-6 hover:text-primary" />
+      <button
+        className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+        type="submit"
+      >
+        <LogOut className="h-6 w-6" />
       </button>
     </form>
   );

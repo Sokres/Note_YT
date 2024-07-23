@@ -21,7 +21,7 @@ const Footer = ({ data }: Readonly<Footer>) => {
   const { socialLink } = data;
   return (
     <footer className="bg-slate-700 py-6">
-      <div className="mx-auto my-0 flex max-w-6xl justify-between">
+      <div className="mx-auto my-0 flex justify-between px-20">
         <Logo></Logo>
         <SocialIcon socialLink={socialLink} />
       </div>
