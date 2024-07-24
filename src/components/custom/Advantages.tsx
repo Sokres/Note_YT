@@ -23,7 +23,6 @@ export interface AdvantageImage {
 
 const Advantages = ({ data }: { readonly data: AdvantagePropsCompontn }) => {
   const { advantages } = data;
-  //   console.log(advantages);
   return (
     <section className="bg-zinc-100 pt-16">
       <ul className="m-0 mx-auto my-0 max-w-6xl list-none p-0">

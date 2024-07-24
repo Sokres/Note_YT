@@ -4,7 +4,7 @@ import { getAuthToken } from "./get-token";
 import axios from "axios";
 
 const query = qs.stringify({
-  populate: { image: { fields: ["url", "alternativeText"] } },
+  populate: { userImage: { fields: ["url", "alternativeText"] } },
 });
 
 export async function getUserMeLoader() {

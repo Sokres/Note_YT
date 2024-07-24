@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { StrapiImage } from "./StrapiImage";
+import { getUserMeLoader } from "@/data/services/getUserMeLoader";
 
 export interface LandingPage {
   data: {
@@ -25,7 +26,8 @@ export interface Link {
   isExt: boolean;
 }
 
-const Landing = ({ data }: Readonly<LandingPage>) => {
+const Landing = async ({ data }: Readonly<LandingPage>) => {
+  const user = await getUserMeLoader();
   const { header, description, image, link } = data;
   return (
     <header className="relative h-[600px] overflow-hidden bg-white">
@@ -45,9 +47,9 @@ const Landing = ({ data }: Readonly<LandingPage>) => {
         </p>
         <Link
           className="mt-8 items-center justify-center rounded-md bg-purple-600 px-6 py-3 text-base font-medium text-white shadow transition-all hover:bg-purple-300"
-          href={link.url}
+          href={user.ok ? "/board" : link.url}
         >
-          {link.text}
+          {user.ok ? "Войти в панель" : link.text}
         </Link>
       </div>
     </header>

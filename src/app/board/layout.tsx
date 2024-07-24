@@ -18,7 +18,7 @@ const BoardLayout = ({ children }: { readonly children: ReactNode }) => {
               Панель
             </Link>
             <Link
-              href="#"
+              href="/board/account"
               className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
             >
               <CircleUser className="h-6 w-6" />

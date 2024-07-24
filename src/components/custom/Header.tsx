@@ -19,7 +19,6 @@ interface HeaderProps {
 }
 const Header = async ({ data }: Readonly<HeaderProps>) => {
   const user = await getUserMeLoader();
-  console.log(user);
   const { logoText, ctaButton } = data;
   return (
     <header className="relative z-10 shadow-xl">
