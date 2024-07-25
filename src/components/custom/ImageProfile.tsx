@@ -38,6 +38,7 @@ function ImageCard({
   readonly fileInput: React.RefObject<HTMLInputElement>;
 }) {
   //проеряем приходят ли данны о изображении с сервера
+  console.log(dataUrl);
   const imagePreview = dataUrl ? (
     <ImagePreview dataUrl={dataUrl} />
   ) : (

@@ -146,16 +146,15 @@ export async function uploadProfileImageAction(
   // посмотреть ответ
   // получаем идантификатор изображения
   const updatedImageId = fileUploadResponse[0].id;
-  console.log(updatedImageId);
   const payload = { userImage: updatedImageId };
-
-  // Обновление изображения
+  // мы передаем id изображения пользователю
   const updateImageResponse = await upadteData(
     "PUT",
     `/api/users/${userId}`,
     payload,
   );
   const flattenedData = flattenAttributes(updateImageResponse);
+  console.log(flattenedData);
 
   return {
     ...prevState,

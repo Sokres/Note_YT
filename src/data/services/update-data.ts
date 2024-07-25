@@ -20,7 +20,7 @@ export async function upadteData(method: string, path: string, payload?: any) {
     });
     return data;
   } catch (err) {
-    console.log("Ошш", err);
+    console.log("Ошибка", err);
     if (axios.isAxiosError(err)) {
       return {
         error: err.response?.data || { message: err.message },

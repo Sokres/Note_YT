@@ -12,10 +12,9 @@ export async function fileDeleteService(imageId: string) {
   const data = await upadteData("DELETE", `/api/upload/files/${imageId}`);
   // удаление лишних данных
   const flattenedData = flattenAttributes(data);
-  console.log(flattenedData);
   return flattenedData;
 }
-
+//Загрузка изображения изображения
 export async function fileUploadService(image: any) {
   const authToken = await getAuthToken();
   if (!authToken) throw new Error("Не наеден токен");

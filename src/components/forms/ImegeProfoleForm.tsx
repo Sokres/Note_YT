@@ -41,7 +41,6 @@ export const ImegeProfoleForm = ({
     uploadProfileImageWithIdAction,
     initialState,
   );
-  console.log(formState);
 
   return (
     <form action={formAction} className={cn("space-y-4", className)}>
